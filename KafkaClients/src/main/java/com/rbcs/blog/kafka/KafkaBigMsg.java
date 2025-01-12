@@ -43,7 +43,7 @@ public class KafkaBigMsg {
 
         ConsumerRecords<String, String> consumerRecords = consumer.poll(Duration.ofSeconds(1));
         for (ConsumerRecord<String, String> consumerRecord : consumerRecords) {
-            System.out.println(consumerRecord.key() + " :: " + consumerRecord.value());
+            System.out.println("read msg of size(mb) =  " + consumerRecord.value().toCharArray().length/(1024*1024));
         }
 
     }
@@ -71,6 +71,7 @@ public class KafkaBigMsg {
         properties.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         properties.put(ConsumerConfig.GROUP_ID_CONFIG, "bigMsgConsumer");
         properties.put(ConsumerConfig.AUTO_OFFSET_RESET_DOC, "earliest");
+        properties.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "true");
 
         //consumer properties for big msg
         properties.put(ConsumerConfig.FETCH_MAX_BYTES_CONFIG, "3024822");
