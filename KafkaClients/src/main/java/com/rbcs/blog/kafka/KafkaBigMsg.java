@@ -41,9 +41,11 @@ public class KafkaBigMsg {
         initConsumer();
         consumer.subscribe(Collections.singletonList(topicName));
 
-        ConsumerRecords<String, String> consumerRecords = consumer.poll(Duration.ofSeconds(1));
-        for (ConsumerRecord<String, String> consumerRecord : consumerRecords) {
-            System.out.println("read msg of size(mb) =  " + consumerRecord.value().toCharArray().length/(1024*1024));
+        while (true) {//infinite loop to keep polling topic
+            ConsumerRecords<String, String> consumerRecords = consumer.poll(Duration.ofSeconds(1));
+            for (ConsumerRecord<String, String> consumerRecord : consumerRecords) {
+                System.out.println("read msg of size(mb) =  " + consumerRecord.value().toCharArray().length / (1024 * 1024));
+            }
         }
 
     }
@@ -70,7 +72,7 @@ public class KafkaBigMsg {
         properties.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         properties.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         properties.put(ConsumerConfig.GROUP_ID_CONFIG, "bigMsgConsumer");
-        properties.put(ConsumerConfig.AUTO_OFFSET_RESET_DOC, "earliest");
+        properties.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
         properties.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "true");
 
         //consumer properties for big msg

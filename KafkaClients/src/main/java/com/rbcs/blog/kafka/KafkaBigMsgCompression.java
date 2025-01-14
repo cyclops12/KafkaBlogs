@@ -74,8 +74,8 @@ public class KafkaBigMsgCompression {
         properties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootStrapServer);
         properties.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         properties.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-        properties.put(ConsumerConfig.GROUP_ID_CONFIG, "bigMsgConsumer2");
-        properties.put(ConsumerConfig.AUTO_OFFSET_RESET_DOC, "earliest");
+        properties.put(ConsumerConfig.GROUP_ID_CONFIG, "bigMsgConsumer3");
+        properties.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
         properties.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "true");
 
 
